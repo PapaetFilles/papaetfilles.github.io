@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["J6NACQ723J.com.davidgrodzki.magnetalarm"],
+        "components": [
+          { "/": "/mriguard/*", "comment": "MRI Guard: settings links (/mriguard/c) and NFC arm links (/mriguard/arm)" }
+        ]
+      }
+    ]
+  }
+}

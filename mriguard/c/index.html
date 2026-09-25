@@ -20,8 +20,12 @@
     var json=decodeURIComponent(escape(atob(b)));var d=JSON.parse(json);var ul=document.getElementById('summary');
     function li(t){var e=document.createElement('li');e.textContent=t;ul.appendChild(e)}
     if(d.places&&d.places.length)li((de?'Orte: ':'Places: ')+d.places.map(function(p){return p.n}).join(', '));
-    if(d.alarm)li((de?'Alarm: Schwelle ':'Alarm: threshold ')+(d.alarm.t||'?')+' µT');
-    if(d.notif)li(de?'Mitteilungen':'Notifications');
+    var a=d.alarm||{},al=[];
+    if(a.t)al.push((de?'Schwelle ':'threshold ')+a.t+' µT');
+    if(a.s)al.push(de?'Alarmton':'alarm sound');
+    if(a.smart!==undefined)al.push(de?'Intelligenter Alarm':'Smart Alarm');
+    if(al.length)li((de?'Alarm: ':'Alarm: ')+al.join(', '));
+    if(d.notif||a.delivery)li(de?'Mitteilungen':'Notifications');
     if(d.from)li((de?'Von: ':'From: ')+d.from);
   }catch(e){}
 })();

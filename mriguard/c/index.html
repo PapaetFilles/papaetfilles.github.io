@@ -7,8 +7,8 @@
 <ul id="summary"></ul>
 <p><a class="btn" id="open" href="magnetalarm://import">In MRI Guard öffnen · Open in MRI Guard</a>
 <a class="btn" style="background:#4f5a54" href="https://apps.apple.com/app/id6794649750">App Store</a></p>
-<p class="muted" id="priv-de">Die Einstellungen stecken hinter dem <code>#</code> im Link und werden nie an einen Server gesendet.</p>
-<p class="muted" id="priv-en" hidden>The settings live behind the <code>#</code> in the link and are never sent to any server.</p>
+<p class="muted" id="priv-de">Die Einstellungen stecken hinter dem <code>#</code> im Link; diesen Teil schickt der Browser nicht an den Server. <a href="https://papaetfilles.github.io/mriguard-support/privacy.html">Datenschutz</a></p>
+<p class="muted" id="priv-en" hidden>The settings live behind the <code>#</code> in the link; browsers don't send that part to the server. <a href="https://papaetfilles.github.io/mriguard-support/privacy.html">Privacy policy</a></p>
 <script>
 (function(){
   var de=/^de/i.test(navigator.language);
@@ -16,7 +16,8 @@
   var frag=location.hash.replace(/^#/,'');
   if(frag){document.getElementById('open').href='magnetalarm://import#'+frag}
   try{
-    var b=frag.replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';
+    var raw=frag;try{raw=decodeURIComponent(frag)}catch(e){}
+    var b=raw.replace(/[^A-Za-z0-9+\/=_-]/g,'').replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';
     var json=decodeURIComponent(escape(atob(b)));var d=JSON.parse(json);var ul=document.getElementById('summary');
     function li(t){var e=document.createElement('li');e.textContent=t;ul.appendChild(e)}
     if(d.places&&d.places.length)li((de?'Orte: ':'Places: ')+d.places.map(function(p){return p.n}).join(', '));
